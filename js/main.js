@@ -1,12 +1,8 @@
-/*
-  main.js — Lumix Creative Studio
-  - Improved reveal-on-scroll to handle multiple elements via IntersectionObserver
-  - Tidy up and preserve ticker, modal, and mobile nav logic
-*/
-document.addEventListener('DOMContentLoaded', () => {
-  const debug = (...args) => { if (window.location.search.includes('dbg')) console.log('[lumix]', ...args); };
 
-  // LOGO entrance
+document.addEventListener('DOMContentLoaded', () => {
+  const debug = (...args) => { if (window.location.search.includes('dbg')) { } };
+
+
   const logo = document.getElementById('logo-img');
   if (logo) {
     logo.style.transition = 'transform 1400ms cubic-bezier(.2,.9,.3,1), opacity 1040ms ease';
@@ -18,13 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1400);
   }
 
-  // HERO reveal (kept)
+
   const hero = document.querySelector('.hero-content');
   if (hero) {
     setTimeout(() => hero.classList.add('animate-in'), 90);
   }
 
-  // Generic reveal-on-scroll using IntersectionObserver
+
   function revealOnScrollAll(selector, options = {root: null, rootMargin: '0px 0px -80px 0px', threshold: 0.08}) {
     const els = Array.from(document.querySelectorAll(selector));
     if (els.length === 0) return;
@@ -32,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('in');
-          // If the element contains an <img> or <video>, try to trigger media loading/playing
+
           entry.target.querySelectorAll('video').forEach(v => {
             try { v.muted = true; v.loop = true; v.playsInline = true; v.play().catch(()=>{}); } catch(e){}
           });
@@ -42,21 +38,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }, options);
 
     els.forEach(el => {
-      // keep initial hidden state via CSS (no JS mutation required)
+
       io.observe(el);
     });
   }
 
-  // reveal groups (matches about, contact, support images/classes)
+
   revealOnScrollAll('.animate-from-right');
   revealOnScrollAll('.animate-from-left');
 
-  // --- TICKER (preserved but slightly cleaned) ---
+
   (function ticker(){
     const slider = document.querySelector('.gif-slider');
     if (!slider) { debug('No .gif-slider found'); return; }
     const track = slider.querySelector('.gif-track');
-    if (!track) { console.warn('No .gif-track inside .gif-slider — ensure HTML has .gif-track'); return; }
+    if (!track) { return; }
 
     function waitForMediaLoad(container){
       const imgs = Array.from(container.querySelectorAll('img'));
@@ -81,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
           v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
           v.setAttribute('muted',''); v.setAttribute('loop',''); v.setAttribute('playsinline','');
           v.play().catch(()=>{});
-        } catch(e){ /* ignore */ }
+        } catch(e){  }
       });
     }
 
@@ -173,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
               startLoop();
             }, 60);
           }).catch(err => {
-            console.warn('media wait failed (fallback start)', err);
+
             ensureScrollable(40, 12);
             slider.scrollLeft = 1;
             startLoop();
@@ -201,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     debug('ticker initialized (waiting for visibility)');
   })();
 
-  // --------- Support modal logic ----------
+
   const supportBtn = document.getElementById('open-support');
   const modal = document.getElementById('support-modal');
   const modalBackdrop = document.getElementById('modal-backdrop');
@@ -209,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalDone = document.getElementById('modal-done');
   const walletListEl = document.getElementById('wallet-list');
 
-  // === EDIT THIS: Replace with your real wallet addresses/labels ===
+
   const WALLETS = [
     { label: 'SOL', addr: '5MMwK6gmjewbmdNt9iibFpeoHRGkRXq7FXszBdAFMQs6' },
     { label: 'CARDANO', addr: 'addr1vx7qluz2gxcs5cw9nm6kec8a7ycr27z8evflr7cfehrm88grkeuth' },
@@ -249,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function promptCopy(addr, btn){
     try {
       prompt('Copy address (Ctrl+C / Cmd+C):', addr);
-    } catch(e){ /* ignore */ }
+    } catch(e){  }
     if (btn) {
       btn.textContent = 'Copy';
       setTimeout(()=> btn.textContent = 'Copy', 1400);
@@ -348,7 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
   debug('main.js loaded (with modal, ticker, and improved reveal-on-scroll).');
 });
 
-
 /* ===== LUMIX - Minimal override untuk masking address & copy (ADD ONLY) ===== */
 (function(){
   try {
@@ -411,9 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // helper escape (cocok dengan fungsi di file asli)
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[m]; });
-    }
+
 
     // Jika modal sudah dibuka sebelumnya, populate sekarang supaya perubahan terlihat langsung
     // (tapi tidak memaksa modal terbuka)
@@ -421,6 +414,95 @@ document.addEventListener('DOMContentLoaded', () => {
       window.populateWallets();
     }
   } catch (err) {
-    console.error('lumix-overlay-mask error', err);
+
   }
 })();
+
+// --- Minimal addition: support modal masked addresses + copy full ---
+(function(){
+  const walletListEl = document.getElementById('wallet-list');
+  if (!walletListEl) return;
+  const supportBtn = document.getElementById('open-support');
+  const modal = document.getElementById('support-modal');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const modalClose = document.getElementById('modal-close');
+  const modalDone = document.getElementById('modal-done');
+
+  // Replace these addresses with real ones as needed (kept minimal)
+  const WALLETS = [
+    { label: 'SOL', addr: '5MMwK6gmjewbmdNt9iibFpeoHRGkRXq7FXszBdAFMQs6' },
+    { label: 'ERC20', addr: '0x18725dc47ddcb3da8cae11d1c08d8b76f22f3aa3' }
+  ];
+
+  function maskAddr(addr){
+    if (!addr) return '';
+    if (addr.length <= 12) return addr;
+    const first = addr.slice(0,5);
+    const last = addr.slice(-5);
+    return first + 'xxxx' + last;
+  }
+
+  function populate(){
+    walletListEl.innerHTML = '';
+    WALLETS.forEach(w => {
+      const li = document.createElement('li');
+      const left = document.createElement('div');
+      left.className = 'wallet-left';
+      left.innerHTML = '<strong>' + w.label + '</strong><div class="wallet-addr" title="' + w.addr + '">' + maskAddr(w.addr) + '</div>';
+      const right = document.createElement('div');
+      right.className = 'wallet-right';
+      const btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.type = 'button';
+      btn.textContent = 'Copy';
+      btn.dataset.full = w.addr;
+      btn.addEventListener('click', function(){
+        const full = this.dataset.full || '';
+        if (!full) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(full).then(() => {
+            const prev = this.textContent;
+            this.textContent = 'Copied!';
+            setTimeout(()=> this.textContent = prev, 1200);
+          }).catch(()=> { try { prompt('Copy address:', full); } catch(e){} });
+        } else { try { prompt('Copy address:', full); } catch(e){} }
+      });
+      right.appendChild(btn);
+      li.appendChild(left);
+      li.appendChild(right);
+      walletListEl.appendChild(li);
+    });
+  }
+
+  function openModal(){
+    if (!modal) return;
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    populate();
+    setTimeout(()=> { if (modalClose) modalClose.focus(); }, 80);
+  }
+  function closeModal(){
+    if (!modal) return;
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  if (supportBtn) supportBtn.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
+  if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  if (modalDone) modalDone.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape') closeModal(); });
+
+})();
+
+// Attach support modal opener for second bottom button (if present)
+document.addEventListener('DOMContentLoaded', function(){
+  var b2 = document.getElementById('open-support-2');
+  if (b2) {
+    b2.addEventListener('click', function(e){
+      e.preventDefault();
+      var primary = document.getElementById('open-support');
+      if (primary) primary.click();
+    });
+  }
+});
