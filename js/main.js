@@ -347,3 +347,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
   debug('main.js loaded (with modal, ticker, and improved reveal-on-scroll).');
 });
+
+
+/* ===== LUMIX - Minimal override untuk masking address & copy (ADD ONLY) ===== */
+(function(){
+  try {
+    // pastikan elemen ada
+    const walletListEl = document.getElementById('wallet-list');
+    if (!walletListEl) return;
+
+    // kalau WALLETS sudah ada (script utama), gunakan itu, kalau tidak gunakan array fallback
+    const sourceWallets = (typeof WALLETS !== 'undefined' && Array.isArray(WALLETS) && WALLETS.length) ? WALLETS : [
+      { label: 'SOL', addr: '5MMwK6gmjewbmdNt9iibFpeoHRGkRXq7FXszBdAFMQs6' }
+    ];
+
+    function maskAddr(addr){
+      if (!addr) return '';
+      if (addr.length <= 12) return addr;
+      const first = addr.slice(0,5);
+      const last = addr.slice(-5);
+      return first + 'xxxxxx' + last;
+    }
+
+    // override populateWallets jika ada (menimpa definisi sebelumnya)
+    window.populateWallets = function(){
+      walletListEl.innerHTML = '';
+      sourceWallets.forEach((w) => {
+        const li = document.createElement('li');
+        // left side: label + masked address (masked visible, full in title)
+        const left = document.createElement('div');
+        left.innerHTML = `<strong>${escapeHtml(w.label)}</strong><div class="wallet-addr" title="${escapeHtml(w.addr)}">${escapeHtml(maskAddr(w.addr))}</div>`;
+
+        // right side: copy button yang menyimpan alamat penuh
+        const right = document.createElement('div');
+        const copy = document.createElement('button');
+        copy.className = 'copy-btn';
+        copy.type = 'button';
+        copy.textContent = 'Copy';
+        copy.dataset.full = w.addr || '';
+
+        copy.addEventListener('click', function(){
+          const full = this.dataset.full || '';
+          if (!full) return;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(full).then(() => {
+              const prev = this.textContent;
+              this.textContent = 'Copied!';
+              setTimeout(()=> this.textContent = prev, 1400);
+            }).catch(() => {
+              // fallback prompt
+              try { prompt('Copy address (Ctrl+C / Cmd+C):', full); } catch(e){}
+            });
+          } else {
+            try { prompt('Copy address (Ctrl+C / Cmd+C):', full); } catch(e){}
+          }
+        });
+
+        right.appendChild(copy);
+        li.appendChild(left);
+        li.appendChild(right);
+        walletListEl.appendChild(li);
+      });
+    };
+
+    // helper escape (cocok dengan fungsi di file asli)
+    function escapeHtml(s){
+      return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"})[m]; });
+    }
+
+    // Jika modal sudah dibuka sebelumnya, populate sekarang supaya perubahan terlihat langsung
+    // (tapi tidak memaksa modal terbuka)
+    if (document.getElementById('support-modal') && document.getElementById('support-modal').getAttribute('aria-hidden') === 'false') {
+      window.populateWallets();
+    }
+  } catch (err) {
+    console.error('lumix-overlay-mask error', err);
+  }
+})();
