@@ -914,3 +914,85 @@ footer {
 }
 
 
+/* ===== LUMIX - Minimal fixes for support modal & mobile nav (ADD ONLY) ===== */
+
+/* Modal: batasi tinggi & beri border gradasi Lumix, overflow auto agar alamat bisa dicopy */
+#support-modal .modal-panel {
+  width: min(680px, 92%);
+  max-width: 680px;
+  max-height: calc(100vh - 110px); /* beri ruang atas/bawah agar tidak full-screen */
+  overflow: auto;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(12,4,24,0.98), rgba(6,2,14,0.98));
+  box-shadow: 0 14px 60px rgba(0,0,0,0.55);
+  border: 2px solid transparent;
+  border-image: linear-gradient(90deg, #b46aff, #ff6ec7, #ff8c42) 1;
+}
+
+/* Wallet address style (masked display) */
+#support-modal .wallet-list .wallet-addr {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+  font-size: 0.95rem;
+  color: #f3eff9;
+  max-width: 66%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Copy button: putih background & teks hitam sesuai permintaan */
+#support-modal .copy-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Mobile: pastikan modal tetap bisa discroll dan tidak menutupi seluruh layar */
+@media (max-width: 600px) {
+  #support-modal .modal-panel {
+    width: calc(100% - 36px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: calc(100vh - 90px);
+    padding: 12px;
+    border-radius: 10px;
+  }
+  #support-modal .wallet-list .wallet-addr { max-width: 60%; font-size: 0.92rem; }
+  #support-modal .copy-btn { padding: 10px 14px; }
+}
+
+/* Mobile navbar: ubah panel full-screen jadi panel kecil di kanan,
+   beri border gradasi Lumix supaya site masih terlihat di belakang */
+@media (max-width: 800px) {
+  .main-nav {
+    top: calc(var(--header-h) + 8px);
+    right: 12px;
+    left: auto !important;
+    width: min(360px, calc(88% - 24px)) !important;
+    height: calc(100vh - var(--header-h) - 24px);
+    border-radius: 12px;
+    padding: 16px;
+    transform: translateY(0) scale(1);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease, transform 200ms ease;
+    background: linear-gradient(180deg, rgba(8,2,14,0.98), rgba(12,3,20,0.98));
+    border: 2px solid transparent;
+    border-image: linear-gradient(90deg, #b46aff, #ff6ec7, #ff8c42) 1;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    z-index: 1500;
+  }
+  .main-nav.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .main-nav ul {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
