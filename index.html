@@ -47,7 +47,7 @@
     <section id="hero" class="hero">
       <div class="hero-content animate-drop">
         <h1>We Create Fun & Colorful Experiences</h1>
-        <p>2D / 3D Animation — Games — Websites — BotDev — Community Boost for Web3</p>
+        <p>Providing whatever you need for Web3</p>
         <a href="#contact" class="btn hero-cta">Get Started</a>
       </div>
     </section>
@@ -59,8 +59,8 @@
           <h2>About Us</h2>
           <p>
             Lumix Creative Studio is a creative team from Indonesia with talented animators, developers, and illustrators.
-            We bring ideas to life through animations, games, and digital content — especially for Web3 projects.
-            Legal (NIB: 0305250032399). Let's build cool stuff together!
+            We bring ideas to life through animations, games, and digital content, especially for Web3 projects.
+            Legal (NIB: 0305250032399). 
           </p>
 
           <a href="#about-more" class="btn more-about">More About Us</a>
@@ -76,7 +76,7 @@
     <section id="services" class="section">
       <div class="container">
         <h2>Our Services</h2>
-        <p>We provide complete creative services for Web3 & crypto projects — from animation to bot development.</p>
+        <p>We provide complete creative services for Web3 & crypto projects</p>
 
         <div class="service-cards">
           <!-- cards... keep same structure -->
@@ -135,7 +135,7 @@
     <section id="portfolio" class="section">
       <div class="container">
         <h2>Portofolio</h2>
-        <p>Our recent works — click to view more.</p>
+        <p>Our recent works</p>
 
         <div class="gif-slider" aria-label="Portfolio marquee">
           <div class="gif-track" role="list">
@@ -171,37 +171,31 @@
 
           <div class="contact-buttons">
             <a href="https://t.me/LumixCreativeStudio" class="btn" target="_blank" rel="noopener">Telegram</a>
-            <a href="https://x.com/LumixCS" class="btn" target="_blank" rel="noopener">X (Twitter)</a>
-            <a href="https://discord.com/users/lumixcreativestudio" class="btn" target="_blank" rel="noopener">Discord</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Support (UPDATED) -->
-<section id="support" class="section support">
-  <div class="container support-content">
+<section id="support" class="support-section">
+  <div class="support-inner"> 
+    <!-- header berisi judul + gambar, dengan jarak yang konsisten -->
+    <div class="support-header">
+      <h2 class="support-title">Support Lumix</h2>
+      <img src="images/support-illustration.jpg" alt="Support Image" class="support-img" />
+    </div>
 
-    <!-- Layout: desktop/tablet => image left, text+button right.
-         mobile (≤768px) => stacked like Contact (image above, text under, button bottom). -->
-    <div class="support-row">
-      <div class="support-image animate-from-left" aria-hidden="false">
-  <img src="images/support-illustration.jpg" alt="Support Illustration" loading="lazy" />
-</div>
-
-
-      <div class="support-cta">
-        <h2>Support Lumix</h2>
-        <p>Every support helps, for tips, artworks, or project funding. You can send crypto donations or contact us for paid collaborations.</p>
-
-        <!-- Single prominent button under text (desktop/tablet), on mobile it will appear below as well -->
-        <div class="support-buttons" style="margin-top:8px;">
-          <button id="open-support" class="btn">Support Wallets</button>
-        </div>
+    <!-- teks + tombol berada di satu baris -->
+    <div class="support-text">
+      <div class="support-row">
+        <p class="support-note">You can send $SOL for donations</p>
+        <button id="open-support" class="support-btn" type="button">Support</button>
       </div>
     </div>
   </div>
 </section>
+
+
 
   </main>
 
@@ -215,7 +209,7 @@
   <div id="support-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="support-modal-title">
     <div class="modal-backdrop" id="modal-backdrop" tabindex="-1"></div>
     <div class="modal-panel" role="document" aria-modal="true">
-      <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+      <!-- <button class="modal-close" id="modal-close" aria-label="Close">&times;</button> -->
       <h3 id="support-modal-title">Support Lumix — Wallet Addresses</h3>
       <p>Choose a wallet to copy address:</p>
       <ul class="wallet-list" id="wallet-list"></ul>
