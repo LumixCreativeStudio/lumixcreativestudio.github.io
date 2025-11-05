@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>About</title>
+<meta name="description" content="Lumix Creative Studio — creative studio focused on Web3: animation, illustration, web & game development, and community growth."/>
+<link rel="stylesheet" href="css/about.css"/>
+<link rel="icon" type="image/png" href="images/favicon.png"/>
+</head>
+<body>
+<main class="container">
+<header class="page-header">
+  <h1 class="shimmer-title">Core Team</h1>
+  <p class="subheading">About Lumix Creative Studio</p>
+</header>
+
+<section class="team-section" aria-labelledby="core-team-title">
+  <h2 id="core-team-title" class="visually-hidden">Core Team</h2>
+
+  <div class="team-grid founder" role="group" aria-label="Founder">
+    <article class="card comic team-card" data-mini="Founder · Vision & Strategy">
+      <div class="role">Founder</div>
+      <div class="photo-wrap">
+        <img src="images/pasha.jpg" alt="Photo of Muhammad Nur Ibrahim Pasha" width="160" height="160"/>
+      </div>
+      <div class="name">Muhammad Nur Ibrahim Pasha</div>
+      <div class="bio">Founder of Lumix Creative Studio (established mid-2023), based in Cianjur, West Java. Leads the studio's vision and strategic direction in Web3 creative solutions.</div>
+    </article>
+  </div>
+
+  <div class="row-3" role="list" aria-label="Leadership row">
+    <article class="card comic team-card" data-mini="Lead · Full-stack builder" role="listitem">
+      <div class="role">Lead Developer</div>
+      <div class="photo-wrap"><img src="images/rahmi.jpg" alt="Photo of Lead Developer" width="160" height="160"/></div>
+      <div class="name">Rahmi Vina Shafira</div>
+      <div class="bio">Oversees technical architecture, full-stack development, and integration of Web3 features into client projects.</div>
+    </article>
+
+    <article class="card comic team-card" data-mini="Motion · Animation Director" role="listitem">
+      <div class="role">Lead Animator</div>
+      <div class="photo-wrap"><img src="images/hari.jpg" alt="Photo of Lead Animator" width="160" height="160"/></div>
+      <div class="name">Hari Ono Suwika</div>
+      <div class="bio">Guides visual direction and animation production to maintain consistent quality across all creative deliverables.</div>
+    </article>
+
+    <article class="card comic team-card" data-mini="PM · Delivery & Ops" role="listitem">
+      <div class="role">Project Manager</div>
+      <div class="photo-wrap"><img src="images/novel.jpg" alt="Photo of Project Manager" width="160" height="160"/></div>
+      <div class="name">Novel Hardiyanto</div>
+      <div class="bio">Manages project planning, timelines, and cross-team coordination to ensure reliable delivery.</div>
+    </article>
+  </div>
+
+  <div class="centered" role="group" aria-label="Community Manager">
+    <article class="card comic team-card" data-mini="Community · Growth & Engagement">
+      <div class="role">Community Manager</div>
+      <div class="photo-wrap"><img src="images/windi.jpg" alt="Photo of Marketing / Community Manager" width="160" height="160"/></div>
+      <div class="name">Windi Adinda Putri</div>
+      <div class="bio">Leads community development, engagement strategy, and organic growth initiatives across Web2 and Web3 channels.</div>
+    </article>
+  </div>
+</section>
+
+<section class="info-section" aria-labelledby="mission-title">
+  <h2 id="mission-title">Mission</h2>
+  <p>To combine thoughtful design with reliable technical execution, delivering digital experiences that are both expressive and sustainable for communities and products in the Web3 era.</p>
+  <h3 class="subheading">Values</h3>
+  <ul class="plain-list">
+    <li>Transparent communication and professional delivery</li>
+    <li>Design-driven approach with technical rigor</li>
+    <li>Community focus and long-term sustainability</li>
+  </ul>
+</section>
+
+<section class="info-section timeline-section" aria-labelledby="timeline-title">
+  <h2 id="timeline-title">Timeline</h2>
+  <div class="timeline">
+    <div class="timeline-line" aria-hidden="true"></div>
+    <div class="timeline-node"><div class="node-dot"></div><div class="node-card"><strong>2023</strong><div class="node-text">Studio founded</div></div></div>
+    <div class="timeline-node"><div class="node-dot"></div><div class="node-card"><strong>2024</strong><div class="node-text">First Web3 campaign</div></div></div>
+    <div class="timeline-node"><div class="node-dot"></div><div class="node-card"><strong>2025</strong><div class="node-text">Expanded remote collaborator network</div></div></div>
+  </div>
+</section>
+
+<section class="info-section" aria-labelledby="about-title">
+  <h2 id="about-title">About Lumix Creative Studio</h2>
+  <p>Lumix Creative Studio was established in mid-2023 by Muhammad Nur Ibrahim Pasha and is based in Cianjur, West Java. The studio focuses on high-quality creative production for Web3 and adjacent digital experiences.</p>
+  <h3 class="subheading">Core services</h3>
+  <ul class="plain-list">
+    <li>2D and 3D animation production</li>
+    <li>Illustration and character design</li>
+    <li>Video editing and post-production</li>
+    <li>Website and game development</li>
+    <li>Telegram and Discord bot development</li>
+    <li>Organic community growth and engagement</li>
+  </ul>
+  <p style="margin-top:.6rem">Business Registration Number : <strong>0305250032399</strong></p>
+</section>
+
+<div class="footer-cta"><a class="cta-btn" href="index.html" id="back-home">Back to Home</a></div>
+</main>
+
+<script>
+(function(){const cards=document.querySelectorAll('.team-card');cards.forEach(c=>{const mini=c.dataset.mini||'';const wrap=c.querySelector('.photo-wrap');const el=document.createElement('div');el.className='mini-bio';el.textContent=mini;wrap.appendChild(el);let t=false;wrap.addEventListener('click',()=>{if(window.matchMedia('(hover: none)').matches){t=!t;el.classList.toggle('visible',t)}})});const nodes=document.querySelectorAll('.timeline-node');if('IntersectionObserver' in window){const obs=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.2});nodes.forEach(n=>obs.observe(n))}else{nodes.forEach(n=>n.classList.add('visible'));}
+})();
+</script>
+</body>
+</html>
