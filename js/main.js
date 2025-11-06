@@ -207,9 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const WALLETS = [
-    { label: 'SOL', addr: '5MMwK6gmjewbmdNt9iibFpeoHRGkRXq7FXszBdAFMQs6' },
-    { label: 'CARDANO', addr: 'addr1vx7qluz2gxcs5cw9nm6kec8a7ycr27z8evflr7cfehrm88grkeuth' },
-    { label: 'ERC20/BEP20', addr: '0x18725dc47ddcb3da8cae11d1c08d8b76f22f3aa3' }
+    { label: 'SOL', addr: 'EKt7rZfPfFfiaVnd5zX48DPV6N2yZhdaaLikGTCfpiVA' },
+    { label: 'CARDANO (ADA only)', addr: 'addr1vx7qluz2gxcs5cw9nm6kec8a7ycr27z8evflr7cfehrm88grkeuth' },
+    { label: 'EVM', addr: '0x74D90604B7da9cE16e3CA5633A23345522c9042E' }
   ];
 
   function populateWallets(){
